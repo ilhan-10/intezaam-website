@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intezaam | Order Online</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --primary:#6b1f26;
+    --gold:#d4af37;
+    --dark:#1a1a1a;
+    --light:#f8f5f2;
+    --gradient: linear-gradient(135deg,#6b1f26,#a83232);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:var(--light);
+    color:#333;
+}
+
+/* NAV */
+nav{
+    background:var(--gradient);
+    padding:15px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:white;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+nav img{
+    height:55px;
+}
+
+.cart-btn{
+    position:relative;
+    background:var(--gold);
+    border:none;
+    padding:10px 18px;
+    border-radius:30px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.cart-count{
+    position:absolute;
+    top:-8px;
+    right:-8px;
+    background:red;
+    color:white;
+    font-size:12px;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* HERO */
+.hero{
+    background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.6)),
+    url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092');
+    background-size:cover;
+    background-position:center;
+    color:white;
+    text-align:center;
+    padding:120px 20px;
+}
+
+.hero h1{
+    font-family:'Playfair Display',serif;
+    font-size:50px;
+}
+
+.hero button{
+    margin-top:25px;
+    padding:12px 30px;
+    border:none;
+    border-radius:30px;
+    background:var(--gold);
+    font-size:16px;
+    cursor:pointer;
+}
+
+/* MENU */
+.menu{
+    padding:80px 8%;
+}
+
+.menu h2{
+    text-align:center;
+    font-family:'Playfair Display',serif;
+    font-size:38px;
+    margin-bottom:50px;
+    color:var(--primary);
+}
+
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+}
+
+.card h3{
+    font-family:'Playfair Display',serif;
+}
+
+.price{
+    margin:10px 0;
+    font-weight:600;
+    color:var(--primary);
+}
+
+.qty-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:10px;
+}
+
+.qty-box button{
+    width:30px;
+    height:30px;
+    border:none;
+    background:var(--primary);
+    color:white;
+    border-radius:50%;
+    cursor:pointer;
+}
+
+.add-btn{
+    margin-top:15px;
+    width:100%;
+    padding:10px;
+    border:none;
+    background:var(--gradient);
+    color:white;
+    border-radius:25px;
+    cursor:pointer;
+}
+
+/* CART */
+.cart{
+    position:fixed;
+    right:0;
+    top:0;
+    width:360px;
+    height:100vh;
+    background:white;
+    box-shadow:-5px 0 20px rgba(0,0,0,0.2);
+    padding:25px;
+    transform:translateX(100%);
+    transition:0.4s;
+    overflow-y:auto;
+}
+
+.cart.active{
+    transform:translateX(0);
+}
+
+.cart-item{
+    margin-bottom:15px;
+    border-bottom:1px solid #eee;
+    padding-bottom:10px;
+}
+
+.cart-item button{
+    background:red;
+    color:white;
+    border:none;
+    padding:4px 8px;
+    font-size:12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.total{
+    margin-top:20px;
+    font-weight:600;
+}
+
+.checkout{
+    margin-top:20px;
+    background:var(--gold);
+    border:none;
+    padding:12px;
+    width:100%;
+    border-radius:25px;
+    cursor:pointer;
+}
+
+/* FOOTER */
+footer{
+    background:var(--dark);
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <img src="C:\Users\Mohammed Adeeb\Downloads\logo.png.png" alt="Intezaam Logo">
+    <button class="cart-btn" onclick="toggleCart()">
+        Cart 🛒
+        <div class="cart-count" id="cartCount">0</div>
+    </button>
+</nav>
+
+<section class="hero">
+    <h1><img src="C:\Users\Mohammed Adeeb\Downloads\logo.png"></h1>
+    <button onclick="document.getElementById('menu').scrollIntoView()">Order Now</button>
+</section>
+
+<section class="menu" id="menu">
+    <h2>Our Specials</h2>
+    <div class="menu-grid">
+
+        <!-- PRODUCT -->
+        <div class="card">
+            <h3>Alif Iftar Combo</h3>
+            <p>Chicken Bun Kabab + Sheekh Roll + Fries</p>
+            <div class="price">₹199</div>
+            <div class="qty-box">
+                <button onclick="changeQty('alif',-1)">-</button>
+                <span id="alifQty">1</span>
+                <button onclick="changeQty('alif',1)">+</button>
+            </div>
+            <button class="add-btn" onclick="addToCart('Alif Iftar Combo',199,'alif')">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <h3>Meem Iftar Combo</h3>
+            <p>Chicken Bun Kabab + Chicken Sheekh Roll + French Fries + Cheese Triangle + Crab Claws</p>
+            <div class="price">₹249</div>
+            <div class="qty-box">
+                <button onclick="changeQty('meem',-1)">-</button>
+                <span id="meemQty">1</span>
+                <button onclick="changeQty('meem',1)">+</button>
+            </div>
+            <button class="add-btn" onclick="addToCart('Meem Iftar Combo',249,'meem')">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <h3>Khandani Biryani (1KG)</h3>
+            <p>Chicken Biryani Cooked With True Dakhni Style, Served With Family Made Love</p>
+            <div class="price">₹999</div>
+            <div class="qty-box">
+                <button onclick="changeQty('biryani',-1)">-</button>
+                <span id="biryaniQty">1</span>
+                <button onclick="changeQty('biryani',1)">+</button>
+            </div>
+            <button class="add-btn" onclick="addToCart('Khandani Biryani',899,'biryani')">Add to Cart</button>
+        </div>
+
+    </div>
+</section>
+
+<div class="cart" id="cart">
+    <h3>Your Order</h3>
+    <div id="cartItems"></div>
+    <div class="total">Total: ₹<span id="total">0</span></div>
+    <button class="checkout" onclick="checkout()">Order via WhatsApp</button>
+</div>
+
+<footer>
+© 2026 Intezaam by Chef Ilhan | Udupi
+</footer>
+
+<script>
+let cart = [];
+let total = 0;
+
+function toggleCart(){
+    document.getElementById('cart').classList.toggle('active');
+}
+
+function changeQty(id,value){
+    let qty = document.getElementById(id+"Qty");
+    let current = parseInt(qty.innerText);
+    current += value;
+    if(current < 1) current = 1;
+    qty.innerText = current;
+}
+
+function addToCart(name,price,id){
+    let qty = parseInt(document.getElementById(id+"Qty").innerText);
+    cart.push({name,price,qty});
+    updateCartCount();
+    renderCart();
+}
+
+function updateCartCount(){
+    let count = cart.reduce((sum,item)=>sum+item.qty,0);
+    document.getElementById("cartCount").innerText = count;
+}
+
+function renderCart(){
+    let cartItems = document.getElementById('cartItems');
+    cartItems.innerHTML="";
+    total=0;
+
+    cart.forEach((item,index)=>{
+        total += item.price * item.qty;
+        cartItems.innerHTML += `
+        <div class="cart-item">
+            <p>${item.name} x ${item.qty}</p>
+            <p>₹${item.price * item.qty}</p>
+            <button onclick="removeItem(${index})">Remove</button>
+        </div>`;
+    });
+
+    document.getElementById("total").innerText = total;
+}
+
+function removeItem(index){
+    cart.splice(index,1);
+    updateCartCount();
+    renderCart();
+}
+
+function checkout(){
+    let message = "hello, I want to order:%0A";
+    cart.forEach(item=>{
+        message += "- "+item.name+" x "+item.qty+" (₹"+(item.price*item.qty)+")%0A";
+    });
+    message += "%0ATotal: ₹"+total;
+    window.open("https://wa.me/918296242245?text="+message);
+}
+</script>
+
+</body>
+</html>
